@@ -1,4 +1,4 @@
-FROM node:20-slim
+FROM node:20.17-alpine3.20
 
 RUN npm i -g corepack@latest
 

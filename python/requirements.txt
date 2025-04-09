@@ -1,0 +1,4 @@
+pyserial
+requests
+websocket-client
+python-socketio[client]
