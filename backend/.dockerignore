@@ -1,0 +1,34 @@
+# Ignorar o diretório node_modules (será instalado no container)
+node_modules
+
+# Ignorar arquivos de log
+*.log
+logs/
+*.tsbuildinfo
+
+# Ignorar arquivos de configuração locais ou sensíveis
+.env
+.env.* 
+
+# Ignorar diretórios de builds ou dist
+dist
+build
+
+# Ignorar cache do npm e yarn
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# Ignorar cache e arquivos temporários do sistema
+.DS_Store
+*.swp
+*.tmp
+
+# Ignorar testes e snapshots
+coverage
+tests
+test
+
+# Ignorar qualquer outra configuração do editor
+.idea
+.vscode

@@ -1,0 +1,126 @@
+services:
+  db:
+    image: postgres:12.2-alpine
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - 5432
+    volumes:
+      - postgres_prod_ecology_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ecology" ]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ecology
+
+  frontend:
+    image: ghcr.io/code-samba/ecology-frontend:production
+    restart: always
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env
+    ports:
+      - 3000
+    volumes:
+      - .env:/app/.env.production
+    external_links:
+      - "nginx:api.${HOST_NAME}"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      - ecology
+
+  backend:
+    image: ghcr.io/code-samba/ecology-backend:production
+    restart: always
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env
+    ports:
+      - 3001
+    depends_on:
+      db:
+        condition: service_healthy
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      - ecology
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/${NGINX_CONF_FILE}:/etc/nginx/nginx.conf
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - frontend
+      - backend
+      - uptime-kuma
+    networks:
+      - ecology
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    restart: always
+    ports:
+      - 3001
+    volumes:
+      - uptime-kuma-data:/app/data
+    networks:
+      - ecology
+    environment:
+      - TZ=America/Sao_Paulo
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $HOME/.docker/config.json:/config.json
+    env_file:
+      - ./.env
+    command: --cleanup --label-enable --interval 180
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    ports:
+      - 9443
+    volumes:
+      - portainer-data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    networks:
+      - ecology
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - 80
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - ecology
+    depends_on:
+      - db
+
+networks:
+  ecology:
+    driver: bridge
+
+volumes:
+  postgres_prod_ecology_data:
+  uptime-kuma-data:
+  portainer-data:
+  pgadmin_data:

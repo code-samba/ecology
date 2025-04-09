@@ -1,0 +1,82 @@
+services:
+  db:
+    image: postgres:12.2-alpine
+    restart: always
+    env_file:
+      - ./.env-local
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_local_ecology_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U local_ecology" ]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ecology
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: local.Dockerfile
+    env_file:
+      - ./.env-local
+    volumes:
+      - ./frontend:/app 
+    ports:
+      - '3000:3000'
+    external_links:
+      - "nginx:api.${HOST_NAME}"
+    networks:
+      - ecology
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: local.Dockerfile
+    env_file:
+      - ./.env-local
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./backend:/app 
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - ecology
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/nginx-local.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - ecology
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    env_file:
+      - ./.env-local
+    ports:
+      - '5050:80'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - ecology
+    depends_on:
+      - db
+
+networks:
+  ecology:
+    driver: bridge
+
+volumes:
+  postgres_local_ecology_data:
+  pgadmin_data:

@@ -1,0 +1,25 @@
+# Node modules
+node_modules/
+dist/
+build/
+
+# Next.js
+.next/
+out/
+
+# NestJS
+*.log
+*.tsbuildinfo
+
+# Local configuration
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+mysql_data/
+.env
