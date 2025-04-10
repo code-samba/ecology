@@ -7,6 +7,7 @@ import { useState, useCallback } from "react";
 
 export default function Home() {
   const [sensorData, setSensorData] = useState<Sensor>();
+  const [chartData, setChartData] = useState<any[]>([])
 
   const handleDataReceived = useCallback((data: Sensor) => {
     setSensorData(data);
@@ -40,9 +41,9 @@ export default function Home() {
         <p>Sustainable and Automated by Samba Code ©</p>
       </div>
       <div className="mb-4">
-        <DatePicker />
+        <DatePicker onDataReceived={setChartData} />
       </div>
-      <SensorGrid data={sensorData} />
+      <SensorGrid data={sensorData} chartData={chartData} />
     </main>
   );
 }
