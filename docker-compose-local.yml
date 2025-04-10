@@ -44,6 +44,21 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3001/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - ecology
+
+  python:
+    build:
+      context: ./python
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
     networks:
       - ecology
 
@@ -54,8 +69,8 @@ services:
     volumes:
       - ./nginx/nginx-local.conf:/etc/nginx/nginx.conf
     depends_on:
-      - frontend
       - backend
+      - frontend
     networks:
       - ecology
 

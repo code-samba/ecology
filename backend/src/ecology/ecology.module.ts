@@ -8,6 +8,6 @@ import { PrismaModule } from 'src/prisma/prisma.module';
   imports: [PrismaModule],
   controllers: [EcologyController],
   providers: [EcologyGateway, EcologyService],
-  exports: [EcologyGateway, EcologyService],
+  exports: [EcologyService],
 })
 export class EcologyModule {}

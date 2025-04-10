@@ -4,24 +4,31 @@ import {
   SubscribeMessage,
   MessageBody,
 } from '@nestjs/websockets';
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { EcologyService } from './ecology.service';
-import { forwardRef, Inject } from '@nestjs/common';
 
-@WebSocketGateway()
+@WebSocketGateway({ cors: true })
 export class EcologyGateway {
   @WebSocketServer()
   server: Server;
 
   constructor(
-    @Inject(forwardRef(() => EcologyService))
     private readonly ecologyService: EcologyService,
-  ) {}
+  ) {
+    console.log('🛠️ EcologyGateway instanciado');
+  }
+
+  async handleConnection(client: Socket) {
+    console.log(`🔌 Cliente conectado: ${client.id}`);
+  }
+
+  async handleDisconnect(client: Socket) {
+    console.log(`❌ Cliente desconectado: ${client.id}`);
+  }
 
   @SubscribeMessage('arduino-data')
   async handleArduinoData(@MessageBody() data: any) {
-    console.log('Dados recebidos do Python via socket.io:', data);
-    await this.ecologyService.handleNewData(data);
+    console.log('📡 Dados foram recebidos do Python!');
 
     this.server.emit('update', data);
   }

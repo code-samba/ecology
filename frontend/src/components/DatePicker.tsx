@@ -14,7 +14,6 @@ export function DatePicker() {
 
   return (
     <div className="flex items-center space-x-2">
-      <span className="font-medium">Select Date:</span>
       <Popover>
         <PopoverTrigger asChild>
           <Button
@@ -22,7 +21,7 @@ export function DatePicker() {
             className={cn("w-[240px] justify-start text-left font-normal", !date && "text-muted-foreground")}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {date ? format(date, "PPP") : "Select a date"}
+            {date ? format(date, "PPP") : "Selecione uma Data"}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">

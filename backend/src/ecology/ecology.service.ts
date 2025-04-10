@@ -1,12 +1,9 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { EcologyGateway } from './ecology.gateway';
 
 @Injectable()
 export class EcologyService {
   constructor(
-    @Inject(forwardRef(() => EcologyGateway))
-    private readonly ecologyGateway: EcologyGateway,
     private readonly prisma: PrismaService,
   ) {}
 
