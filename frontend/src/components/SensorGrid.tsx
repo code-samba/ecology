@@ -8,8 +8,9 @@ const sensorLayout = [
   { id: 3, name: "Pressao",  unity: "atm" },
   { id: 4, name: "Luminosidade",  unity: "lux" },
   { id: 5, name: "Calibragem",  unity: "%" },
-  { id: 6, name: "Bomba", unity: "" },
-  { id: 7, name: "Lampada", unity: "" },
+  { id: 6, name: "Altitude",  unity: "m" },
+  { id: 7, name: "Bomba", unity: "" },
+  { id: 8, name: "Lampada", unity: "" },
 ];
 
 export function SensorGrid({ data }: { data?: Sensor }) {
@@ -45,7 +46,7 @@ function SensorCard({ name, value, unity }: SensorCardProps) {
       </CardHeader>
       <CardContent>
         <p className="text-2xl font-bold">
-          {typeof value === 'number' ? (value === 1 ? 'Ativo' : 'Inativo') : value} {unity}
+          {value} {unity}
         </p>
       </CardContent>
     </Card>
