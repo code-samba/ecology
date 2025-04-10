@@ -3,13 +3,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Sensor } from "@/models/sensor.model";
 
 const sensorLayout = [
-  { id: 1, name: "Temperatura" },
-  { id: 2, name: "Umidade" },
-  { id: 3, name: "Pressao" },
-  { id: 4, name: "Luminosidade" },
-  { id: 5, name: "Calibragem" },
-  { id: 6, name: "Bomba" },
-  { id: 7, name: "Lampada" },
+  { id: 1, name: "Temperatura", unity: "°C" },
+  { id: 2, name: "Umidade",  unity: "%" },
+  { id: 3, name: "Pressao",  unity: "atm" },
+  { id: 4, name: "Luminosidade",  unity: "lux" },
+  { id: 5, name: "Calibragem",  unity: "%" },
+  { id: 6, name: "Bomba", unity: "" },
+  { id: 7, name: "Lampada", unity: "" },
 ];
 
 export function SensorGrid({ data }: { data?: Sensor }) {
@@ -24,6 +24,7 @@ export function SensorGrid({ data }: { data?: Sensor }) {
           key={sensor.id} 
           name={sensor.name} 
           value={valueOrDefault(sensor.name)} 
+          unity={sensor.unity}
         />
       ))}
     </div>
@@ -32,10 +33,11 @@ export function SensorGrid({ data }: { data?: Sensor }) {
 
 interface SensorCardProps {
   name: string;
-  value: string | boolean;
+  value: string | number;
+  unity: string;
 }
 
-function SensorCard({ name, value }: SensorCardProps) {
+function SensorCard({ name, value, unity }: SensorCardProps) {
   return (
     <Card className="border border-gray-200">
       <CardHeader className="pb-2">
@@ -43,7 +45,7 @@ function SensorCard({ name, value }: SensorCardProps) {
       </CardHeader>
       <CardContent>
         <p className="text-2xl font-bold">
-          {typeof value === 'boolean' ? (value ? 'Ativo' : 'Inativo') : value}
+          {typeof value === 'number' ? (value === 1 ? 'Ativo' : 'Inativo') : value} {unity}
         </p>
       </CardContent>
     </Card>

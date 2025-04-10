@@ -4,6 +4,6 @@ export interface Sensor {
   calibragem: string,
   pressao: string,
   altitude: string,
-  bomba: boolean,
-  lampada: boolean
+  bomba: number,
+  lampada: number
 }
