@@ -8,8 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { ArduinoService } from "@/services/arduino.service"
+import { Sensor } from "@/models/sensor.model"
 
-export function DatePicker({ onDataReceived }: { onDataReceived: (data: any) => void }) {
+export function DatePicker({ onDataReceived }: { onDataReceived: (data: Sensor[]) => void }) {
   const [date, setDate] = React.useState<Date | undefined>(new Date())
 
   React.useEffect(() => {
@@ -20,7 +21,7 @@ export function DatePicker({ onDataReceived }: { onDataReceived: (data: any) => 
     }
 
     fetchArduinoData()
-  }, [date])
+  }, [date, onDataReceived])
 
   return (
     <div className="flex items-center space-x-2">

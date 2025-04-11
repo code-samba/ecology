@@ -9,7 +9,7 @@ services:
     volumes:
       - postgres_prod_ecology_data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U ecology" ]
+      test: [ "CMD-SHELL", "pg_isready -U local_ecology" ]
       interval: 2s
       timeout: 5s
       retries: 10
@@ -48,6 +48,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3001/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     networks:
@@ -114,6 +119,18 @@ services:
       - ecology
     depends_on:
       - db
+  
+  python:
+    build:
+      context: ./python
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    devices:
+      - "/dev/rfcomm0:/dev/rfcomm0"
+    networks:
+      - ecology
 
 networks:
   ecology:

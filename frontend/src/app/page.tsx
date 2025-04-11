@@ -7,7 +7,7 @@ import { useState, useCallback } from "react";
 
 export default function Home() {
   const [sensorData, setSensorData] = useState<Sensor>();
-  const [chartData, setChartData] = useState<any[]>([])
+  const [chartData, setChartData] = useState<Sensor[]>([])
 
   const handleDataReceived = useCallback((data: Sensor) => {
     setSensorData(data);

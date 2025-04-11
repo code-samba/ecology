@@ -65,7 +65,8 @@ function SensorCard({ name, keyName, value, unity, chartData }: SensorCardProps)
 
   const formattedData =
     chartData?.map((item) => {
-      const date = new Date(item.createdAt);
+      const { createdAt } = item as Sensor & { createdAt: string };
+      const date = new Date(createdAt);
       const hour = date.toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' });
 
       return {
