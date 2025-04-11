@@ -117,7 +117,7 @@ function SensorCard({ name, keyName, value, unity, chartData }: SensorCardProps)
                     content={<ChartTooltipContent indicator="dot" hideLabel />}
                   />
                   <Line
-                    type="monotone"
+                    type="linear"
                     dataKey={keyName}
                     stroke="black"
                     strokeWidth={2}

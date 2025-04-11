@@ -18,6 +18,8 @@ FROM node:20.17-alpine3.20 AS production
 
 RUN npm i -g corepack@latest
 
+RUN apk add --no-cache curl
+
 RUN corepack enable
 
 WORKDIR /app
