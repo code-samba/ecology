@@ -16,10 +16,11 @@ const sensorLayout = [
   { id: 2, name: "Umidade", key: "umity", wsKey: "umidade", unity: "%" },
   { id: 3, name: "Pressao", key: "pression", wsKey: "pressao", unity: "atm" },
   { id: 4, name: "Luminosidade", key: "luminosity", wsKey: "luminosidade", unity: "lux" },
-  { id: 5, name: "Calibragem", key: "calibration", wsKey: "calibragem", unity: "%" },
-  { id: 6, name: "Altitude", key: "altitude", wsKey: "altitude", unity: "m" },
-  { id: 7, name: "Bomba", key: "bombStatus", wsKey: "bomba", unity: "" },
-  { id: 8, name: "Lampada", key: "lampStatus", wsKey: "lampada", unity: "" },
+  { id: 5, name: "Calibragem Luminosidade", key: "calibrationluminosity", wsKey: "calibragemluminosidade", unity: "lux" },
+  { id: 6, name: "Calibragem Umidade", key: "calibration", wsKey: "calibragem", unity: "%" },
+  { id: 7, name: "Altitude", key: "altitude", wsKey: "altitude", unity: "m" },
+  { id: 8, name: "Bomba", key: "bombStatus", wsKey: "bomba", unity: "" },
+  { id: 9, name: "Lampada", key: "lampStatus", wsKey: "lampada", unity: "" },
 ];
 
 export function SensorGrid({
