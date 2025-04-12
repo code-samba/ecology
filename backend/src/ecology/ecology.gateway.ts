@@ -47,6 +47,7 @@ export class EcologyGateway {
             calibration: data.calibragem,
             lampStatus: data.lampada === 1,
             bombStatus: data.bomba === 1,
+            calibrationluminosity: data.calibragemluminosidade
           },
         });
         this.lastSavedMinute = currentKey;

@@ -24,5 +24,6 @@ model ArduinoData {
   calibration   Float?
   lampStatus Boolean?
   bombStatus   Boolean?
+  calibrationluminosity Float?
   createdAt     DateTime @default(now())
 }
