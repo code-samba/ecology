@@ -17,7 +17,7 @@ import { Sensor } from "@/models/sensor.model";
 export function DatePicker({
   onDataReceived,
 }: {
-  onDataReceived: (data: Sensor[]) => void;
+  onDataReceived: (data: { today: Sensor[]; yesterday: Sensor[] }) => void;
 }) {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
 

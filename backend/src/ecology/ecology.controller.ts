@@ -6,14 +6,26 @@ export class EcologyController {
   constructor(private readonly ecologyService: EcologyService) {}
 
   @Get()
-  getSensorData(@Query('data') data: string) {
-    const start = new Date(data);
-    start.setHours(0, 0, 0, 0);
+  async getSensorData(@Query('data') data: string) {
+    const selectedDate = new Date(data);
+    selectedDate.setHours(0, 0, 0, 0);
 
-    const end = new Date(start);
-    end.setDate(end.getDate() + 1);
-    end.setHours(0, 0, 0, 0);
+    const todayStart = new Date(selectedDate);
+    const todayEnd = new Date(todayStart);
+    todayEnd.setDate(todayEnd.getDate() + 1);
 
-    return this.ecologyService.findBetween(start, end);
+    const yesterdayStart = new Date(todayStart);
+    yesterdayStart.setDate(yesterdayStart.getDate() - 1);
+    const yesterdayEnd = new Date(todayStart);
+
+    const [todayData, yesterdayData] = await Promise.all([
+      this.ecologyService.findBetween(todayStart, todayEnd),
+      this.ecologyService.findBetween(yesterdayStart, yesterdayEnd),
+    ]);
+
+    return {
+      today: todayData,
+      yesterday: yesterdayData,
+    };
   }
 }

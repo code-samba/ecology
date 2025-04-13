@@ -118,6 +118,7 @@ interface SensorCardProps {
 }
 
 function SensorCard({ name, value, unity, icon }: SensorCardProps) {
+  console.log(name, value);
   return (
     <Card>
       <CardHeader>
@@ -127,7 +128,11 @@ function SensorCard({ name, value, unity, icon }: SensorCardProps) {
         </CardTitle>
         <CardDescription>
           <p className="text-xl font-bold text-primary">
-            {value}
+            {typeof value === "boolean"
+              ? value
+                ? "Ligado"
+                : "Desligado"
+              : value}
             {unity}
           </p>
         </CardDescription>

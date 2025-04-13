@@ -11,7 +11,7 @@ type SensorDataGrouped = {
 };
 
 export default function Analytics() {
-  const [chartData, setChartData] = useState<Sensor[]>([]);
+  const [chartData, setChartData] = useState<SensorDataGrouped>();
 
   return (
     <main>
