@@ -1,4 +1,4 @@
-import { Sensor } from "@/models/sensor.model";
+import { Sensor, TemperatureChartData } from "@/models/sensor.model";
 import api from "@/utils/axios/api";
 
 export class ArduinoService {
@@ -12,5 +12,9 @@ export class ArduinoService {
         },
       })
       .then((response) => response.data);
+  }
+
+  public static async statistics(): Promise<TemperatureChartData[]> {
+    return api.get("/ecology/statistics").then((response) => response.data);
   }
 }

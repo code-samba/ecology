@@ -94,7 +94,7 @@ export const sensorLayout = [
 
 export function DataGrid({ data }: { data?: Sensor }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
       {sensorLayout.map((sensor) => (
         <SensorCard
           key={sensor.id}
@@ -120,7 +120,6 @@ interface SensorCardProps {
 }
 
 function SensorCard({ name, value, unity, icon }: SensorCardProps) {
-  console.log(name, value);
   return (
     <Card>
       <CardHeader>
@@ -130,11 +129,7 @@ function SensorCard({ name, value, unity, icon }: SensorCardProps) {
         </CardTitle>
         <CardDescription>
           <p className="text-xl font-bold text-primary">
-            {typeof value === "boolean"
-              ? value
-                ? "Ligado"
-                : "Desligado"
-              : value}
+            {value}
             {unity}
           </p>
         </CardDescription>

@@ -28,9 +28,10 @@ def gerar_dados_simulados():
         "temperatura": round(random.uniform(20.0, 30.0), 2),
         "umidade": round(random.uniform(40.0, 60.0), 2),
         "calibragem": round(random.uniform(40.0, 60.0), 2),
-        "pressao": round(random.uniform(1000.0, 1020.0), 2),
+        "pressao": round(random.uniform(0.0, 1.0), 2),
         "altitude": round(random.uniform(100.0, 150.0), 2),
         "luminosidade": round(random.uniform(0.0, 1012.0), 2),
+        "calibragemluminosidade": round(random.uniform(0.0, 1012.0), 2),
         "bomba": bool(random.getrandbits(1)),
         "lampada": bool(random.getrandbits(1))
     }

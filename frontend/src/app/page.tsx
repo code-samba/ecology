@@ -1,11 +1,15 @@
 "use client";
 import { DataGrid } from "@/components/DataGrid";
+import { TemperatureChart } from "@/components/TemperatureChart";
 import { useSocket } from "@/hooks/useSocket";
-import { Sensor } from "@/models/sensor.model";
-import { useState, useCallback } from "react";
+import { Sensor, TemperatureChartData } from "@/models/sensor.model";
+import { ArduinoService } from "@/services/arduino.service";
+import { useState, useCallback, useEffect } from "react";
 
 export default function Home() {
   const [sensorData, setSensorData] = useState<Sensor>();
+  const [temperatureStatistics, setTemperatureStatistics] =
+    useState<TemperatureChartData[]>();
 
   const handleDataReceived = useCallback((data: Sensor) => {
     setSensorData(data);
@@ -16,6 +20,16 @@ export default function Home() {
     handleDataReceived
   );
 
+  useEffect(() => {
+    const getStatistics = async () => {
+      const response = await ArduinoService.statistics();
+
+      setTemperatureStatistics(response);
+    };
+
+    getStatistics();
+  }, []);
+
   return (
     <main>
       <div className="flex flex-col gap-1 mb-3">
@@ -23,16 +37,25 @@ export default function Home() {
           <h1 className="text-xl font-bold flex items-center md:text-3xl">
             Overview
           </h1>
-          <div className="flex items-center justify-center rounded-lg font-medium px-4 py-2 bg-muted text-sm">
-            {connected ? (
-              <p>Connected! Last update: {lastUpdate?.toLocaleTimeString()}</p>
-            ) : (
-              <p>Disconnected... Trying to establish a connection</p>
-            )}
-          </div>
+          {connected && (
+            <div
+              className={`flex items-center justify-center rounded-lg font-medium px-4 py-2 text-sm ${
+                connected && lastUpdate ? "bg-green-900" : "bg-red-900"
+              }`}
+            >
+              {connected && lastUpdate ? (
+                <p>{lastUpdate?.toLocaleTimeString()}</p>
+              ) : (
+                <p>Disconnected</p>
+              )}
+            </div>
+          )}
         </div>
       </div>
-      <DataGrid data={sensorData} />
+      <div className="flex flex-col gap-6">
+        <DataGrid data={sensorData} />
+        <TemperatureChart chartData={temperatureStatistics} />
+      </div>
     </main>
   );
 }

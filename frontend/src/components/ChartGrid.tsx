@@ -100,8 +100,18 @@ function ChartCard({
 
           return {
             time: hour,
-            today: todayValue,
-            yesterday: yesterdayItem[keyName],
+            today:
+              typeof todayValue === "boolean"
+                ? todayValue
+                  ? 1
+                  : 0
+                : todayValue,
+            yesterday:
+              typeof yesterdayItem[keyName] === "boolean"
+                ? yesterdayItem[keyName]
+                  ? 1
+                  : 0
+                : yesterdayItem[keyName],
           };
         }
 

@@ -55,12 +55,11 @@ services:
   python:
     build:
       context: ./python
+      dockerfile: local.Dockerfile
     restart: unless-stopped
     depends_on:
       backend:
         condition: service_healthy
-    devices:
-      - "/dev/rfcomm0:/dev/rfcomm0"
     networks:
       - ecology
 

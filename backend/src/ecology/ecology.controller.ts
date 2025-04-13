@@ -28,4 +28,37 @@ export class EcologyController {
       yesterday: yesterdayData,
     };
   }
+
+  @Get('statistics')
+  async getStatistics() {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+
+    const days = 30;
+    const statistics = [];
+
+    for (let i = 0; i < days; i++) {
+      const start = new Date(now);
+      start.setDate(start.getDate() - i);
+
+      const end = new Date(start);
+      end.setDate(end.getDate() + 1);
+
+      const dayData = await this.ecologyService.findBetween(start, end);
+
+      if (dayData.length > 0) {
+        const temperatures = dayData.map((d) => d.temperature);
+        const maxTemp = Math.max(...temperatures);
+        const minTemp = Math.min(...temperatures);
+
+        statistics.push({
+          date: start.toISOString().split('T')[0],
+          maxTemperature: maxTemp,
+          minTemperature: minTemp,
+        });
+      }
+    }
+
+    return statistics.reverse();
+  }
 }

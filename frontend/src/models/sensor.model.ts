@@ -9,3 +9,9 @@ export interface Sensor {
   lampada: number;
   calibragemluminosidade: number;
 }
+
+export interface TemperatureChartData {
+  date: Date;
+  maxTemperature: number;
+  minTemperature: number;
+}
