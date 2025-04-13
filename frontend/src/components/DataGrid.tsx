@@ -100,7 +100,9 @@ export function DataGrid({ data }: { data?: Sensor }) {
           key={sensor.id}
           name={sensor.name}
           value={
-            data ? data[sensor.wsKey as keyof typeof data] : "Disconnected"
+            data
+              ? String(data[sensor.wsKey as keyof typeof data])
+              : "Disconnected"
           }
           unity={data ? sensor.unity : ""}
           icon={sensor.icon}

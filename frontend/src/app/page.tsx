@@ -1,5 +1,4 @@
 "use client";
-import { DatePicker } from "@/components/DatePicker";
 import { DataGrid } from "@/components/DataGrid";
 import { useSocket } from "@/hooks/useSocket";
 import { Sensor } from "@/models/sensor.model";

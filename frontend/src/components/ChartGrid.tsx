@@ -19,8 +19,12 @@ import { sensorLayout } from "./DataGrid";
 
 export function ChartGrid({
   chartData,
+  naturalLines,
+  comparePrevious,
 }: {
   chartData?: { today: Sensor[]; yesterday: Sensor[] };
+  naturalLines: boolean;
+  comparePrevious: boolean;
 }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -31,6 +35,8 @@ export function ChartGrid({
           keyName={sensor.key as keyof Sensor}
           chartData={chartData}
           icon={sensor.icon}
+          naturalLines={naturalLines}
+          comparePrevious={comparePrevious}
         />
       ))}
     </div>
@@ -42,23 +48,32 @@ interface ChartCardProps {
   keyName: keyof Sensor;
   chartData?: { today: Sensor[]; yesterday: Sensor[] };
   icon: React.ReactNode;
+  naturalLines: boolean;
+  comparePrevious: boolean;
 }
 
-function ChartCard({ name, keyName, chartData, icon }: ChartCardProps) {
+function ChartCard({
+  name,
+  keyName,
+  chartData,
+  icon,
+  naturalLines,
+  comparePrevious,
+}: ChartCardProps) {
   const hasChart = chartData && chartData.today[0]?.[keyName] !== undefined;
 
   const chartConfig = {
     today: {
-      label: "Today",
+      label: "Day",
       color: "hsl(var(--chart-1))",
     },
     yesterday: {
-      label: "Yesterday",
+      label: "Previous",
       color: "hsl(var(--chart-2))",
     },
   } satisfies ChartConfig;
 
-  const hasYesterday = chartData?.yesterday?.length! > 0;
+  const hasYesterday = chartData?.yesterday && chartData.yesterday.length > 0;
 
   const formattedData =
     chartData?.today
@@ -71,7 +86,7 @@ function ChartCard({ name, keyName, chartData, icon }: ChartCardProps) {
 
         const todayValue = todayItem[keyName];
 
-        if (hasYesterday) {
+        if (hasYesterday && comparePrevious) {
           const yesterdayItem = chartData.yesterday.find((item) => {
             const itemDate = new Date(item.createdAt);
             const itemHour = itemDate.toLocaleTimeString("pt-BR", {
@@ -161,14 +176,14 @@ function ChartCard({ name, keyName, chartData, icon }: ChartCardProps) {
                   content={<ChartTooltipContent />}
                 />
                 <Area
-                  type="linear"
+                  type={naturalLines ? "monotone" : "linear"}
                   dataKey="today"
                   stroke="var(--chart-1)"
                   fill={`url(#fill-today)`}
                   fillOpacity={0.4}
                 />
                 <Area
-                  type="linear"
+                  type={naturalLines ? "monotone" : "linear"}
                   dataKey="yesterday"
                   stroke="var(--chart-2)"
                   fill={`url(#fill-yesterday)`}
