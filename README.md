@@ -70,3 +70,14 @@ Se tudo ocorrer corretamente, o sistema estará disponível nos seguintes endere
 - 🐘 **PgAdmin**: [http://pgadmin.ecology.local](http://pgadmin.ecology.local)
 
 ---
+
+### 🔌 Circuito Físico
+
+Aqui está o circuito físico utilizado no projeto:
+
+> O circuito inclui sensores de temperatura, umidade, luminosidade e pressão conectados ao Arduino, com comunicação via Bluetooth para o backend Python.
+
+![Circuito](docs/images/circuit.jpg)
+![Display](docs/images/display.jpg)
+![Bomba](docs/images/bomb.jpg)
+![Plantas](docs/images/ecology.jpg)
