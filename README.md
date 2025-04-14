@@ -77,7 +77,7 @@ Aqui está o circuito físico utilizado no projeto:
 
 > O circuito inclui sensores de temperatura, umidade, luminosidade e pressão conectados ao Arduino, com comunicação via Bluetooth para o backend Python.
 
-![Circuito](docs/images/circuit.jpg)
-![Display](docs/images/display.jpg)
-![Bomba](docs/images/bomb.jpg)
-![Plantas](docs/images/ecology.jpg)
+![Circuito](docs/images/circuit.jpeg)
+![Display](docs/images/display.jpeg)
+![Bomba](docs/images/bomb.jpeg)
+![Plantas](docs/images/ecology.jpeg)
