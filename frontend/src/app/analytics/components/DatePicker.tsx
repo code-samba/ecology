@@ -19,7 +19,12 @@ export function DatePicker({
 }: {
   onDataReceived: (data: { today: Sensor[]; yesterday: Sensor[] }) => void;
 }) {
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const [date, setDate] = React.useState<Date | undefined>(() => {
+    const now = new Date();
+    now.setHours(now.getHours() - 3);
+    return now;
+  });
+  const [formattedDate, setFormattedDate] = React.useState("");
 
   React.useEffect(() => {
     const fetchArduinoData = async () => {
@@ -27,6 +32,10 @@ export function DatePicker({
 
       onDataReceived(response);
     };
+
+    if (date) {
+      setFormattedDate(format(date, "PPP"));
+    }
 
     fetchArduinoData();
   }, [date, onDataReceived]);
@@ -43,7 +52,7 @@ export function DatePicker({
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {date ? format(date, "PPP") : "Selecione uma Data"}
+            {formattedDate || "Select a Date"}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">

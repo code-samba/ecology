@@ -86,15 +86,6 @@ services:
     environment:
       - TZ=America/Sao_Paulo
 
-  watchtower:
-    image: containrrr/watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - $HOME/.docker/config.json:/config.json
-    env_file:
-      - ./.env
-    command: --cleanup --label-enable --interval 180
-
   portainer:
     image: portainer/portainer-ce:latest
     ports:

@@ -15,7 +15,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { sensorLayout } from "./DataGrid";
+import { sensorLayout } from "../../components/DataGrid";
 
 export function ChartGrid({
   chartData,

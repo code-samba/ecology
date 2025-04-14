@@ -1,6 +1,6 @@
 "use client";
-import { DataGrid } from "@/components/DataGrid";
-import { TemperatureChart } from "@/components/TemperatureChart";
+import { DataGrid } from "@/app/components/DataGrid";
+import { TemperatureChart } from "@/app/components/TemperatureChart";
 import { useSocket } from "@/hooks/useSocket";
 import { Sensor, TemperatureChartData } from "@/models/sensor.model";
 import { ArduinoService } from "@/services/arduino.service";
@@ -39,9 +39,7 @@ export default function Home() {
           </h1>
           {connected && (
             <div
-              className={`flex items-center justify-center rounded-lg font-medium px-4 py-2 text-sm ${
-                connected && lastUpdate ? "bg-green-900" : "bg-red-900"
-              }`}
+              className={`flex items-center justify-center rounded-lg font-medium px-4 py-2 text-sm bg-muted`}
             >
               {connected && lastUpdate ? (
                 <p>{lastUpdate?.toLocaleTimeString()}</p>

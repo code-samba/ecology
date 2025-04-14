@@ -1,9 +1,8 @@
 "use client";
-
-import { DatePicker } from "@/components/DatePicker";
+import { DatePicker } from "@/app/analytics/components/DatePicker";
 import { Sensor } from "@/models/sensor.model";
 import { useState } from "react";
-import { ChartGrid } from "@/components/ChartGrid";
+import { ChartGrid } from "@/app/analytics/components/ChartGrid";
 import { Checkbox } from "@/components/ui/checkbox";
 
 type SensorDataGrouped = {
