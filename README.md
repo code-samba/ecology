@@ -43,7 +43,7 @@ Adicione as seguintes entradas no arquivo `/etc/hosts` (Linux) para simular os d
 
 ---
 
-### ▶️ Inicialização do Projeto
+### 🌿 Inicialização do Projeto
 
 - No Linux, execute:
 
