@@ -9,7 +9,7 @@ Ideal para automação de cuidados com plantas, análise ambiental e visualizaç
 
 - **Arduino** – Coleta de dados dos sensores
 - **Python** – Comunicação Bluetooth e envio de dados
-- **NestJS (TypeScript)** – Backend (API + WebSocket)
+- **Nest.js (TypeScript)** – Backend (API + WebSocket)
 - **Next.js (TypeScript)** – Frontend com painel de estatísticas
 - **PostgreSQL + Docker** – Armazenamento e persistência dos dados
 - **Nginx** - Proxy reverso
@@ -81,3 +81,13 @@ Aqui está o circuito físico utilizado no projeto:
 ![Display](docs/images/display.jpeg)
 ![Bomba](docs/images/bomb.jpeg)
 ![Plantas](docs/images/ecology.jpeg)
+
+---
+
+## 📄 Licença
+
+Este projeto é licenciado sob a [GNU GPL](LICENSE).
+
+---
+
+🚀 Desenvolvido por **[Frooszy](https://github.com/Frooszy)**  
